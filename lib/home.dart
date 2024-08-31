@@ -1,3 +1,5 @@
+import 'package:bmi/logic.dart';
+import 'package:bmi/result.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -112,30 +114,24 @@ class _HomeState extends State<Home> {
                 Text(
                   "Height",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "$height",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 50,
-                  fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold),
                 ),
                 Slider(
-
                   inactiveColor: Colors.black,
                   value: height,
                   activeColor: Color(0xffd1ff89),
                   max: 200,
-
-
                   onChanged: (value) {
-
                     setState(() {
-
                       height = value.roundToDouble();
                     });
                   },
@@ -171,12 +167,9 @@ class _HomeState extends State<Home> {
                           minWidth: 2,
                           color: Color(0xffd1ff89),
                           onPressed: () {
-
-
                             setState(() {
                               weight--;
                             });
-
                           },
                           child: Icon(
                             Icons.remove,
@@ -194,11 +187,9 @@ class _HomeState extends State<Home> {
                           minWidth: 2,
                           color: Color(0xffd1ff89),
                           onPressed: () {
-
                             setState(() {
                               weight++;
                             });
-
                           },
                           child: Icon(
                             Icons.add,
@@ -240,12 +231,9 @@ class _HomeState extends State<Home> {
                           minWidth: 2,
                           color: Color(0xffd1ff89),
                           onPressed: () {
-
-
                             setState(() {
                               age--;
                             });
-
                           },
                           child: Icon(
                             Icons.remove,
@@ -263,12 +251,9 @@ class _HomeState extends State<Home> {
                           minWidth: 2,
                           color: Color(0xffd1ff89),
                           onPressed: () {
-
-
                             setState(() {
                               age++;
                             });
-
                           },
                           child: Icon(
                             Icons.add,
@@ -292,7 +277,19 @@ class _HomeState extends State<Home> {
             child: MaterialButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25)),
-              onPressed: () {},
+              onPressed: () {
+                Logic cal =
+                    Logic(height: height.toInt(), weight: weight.toInt());
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultPage(
+                              bmiResult: cal.calculateBmi(),
+                              resultText: cal.getresult(),
+                              info: cal.getInfo(),
+                            )));
+              },
               child: Text(
                 "Calculate",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
